@@ -16,7 +16,7 @@ type Provider struct {
 }
 
 func (p Provider) Start(addr string) error {
-	c, err := stallion.NewClient(addr)
+	conn, err := stallion.NewClient(addr)
 	if err != nil {
 		return fmt.Errorf("connection failed: %w", err)
 	}
@@ -24,7 +24,7 @@ func (p Provider) Start(addr string) error {
 	for i := 0; i < p.Number; i++ {
 		index := rand.Int() % len(p.Topics)
 
-		err = c.Publish(p.Topics[index], p.Data)
+		err = conn.Publish(p.Topics[index], p.Data)
 		if err != nil {
 			return fmt.Errorf("publish failed: %w", err)
 		}

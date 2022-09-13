@@ -1,7 +1,7 @@
 package trace
 
 import (
-	"log"
+	"fmt"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/jaeger"
@@ -12,25 +12,29 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-func NewTracer() trace.Tracer {
+// NewTracer creates a new otl tracer.
+func NewTracer() (trace.Tracer, error) {
+	// create a new jaeger exporter
 	exporter, err := jaeger.New(
 		jaeger.WithAgentEndpoint(jaeger.WithAgentHost("localhost"), jaeger.WithAgentPort(":3320")),
 	)
 	if err != nil {
-		log.Fatalf("failed to initialize export pipeline: %v", err)
+		return nil, fmt.Errorf("failed to initialize export pipeline: %w", err)
 	}
 
+	// generate resources
 	res, err := resource.Merge(
 		resource.Default(),
 		resource.NewSchemaless(
-			semconv.ServiceNamespaceKey.String("snapp"),
-			semconv.ServiceNameKey.String("mqtt-blackbox-exporter"),
+			semconv.ServiceNamespaceKey.String("amirhnajafiz"),
+			semconv.ServiceNameKey.String("stallion-load-test"),
 		),
 	)
 	if err != nil {
-		panic(err)
+		return nil, fmt.Errorf("failed to manage resourses: %w", err)
 	}
 
+	// create a new batch span
 	bsp := sdk.NewBatchSpanProcessor(exporter)
 	tp := sdk.NewTracerProvider(
 		sdk.WithSampler(sdk.ParentBased(sdk.TraceIDRatioBased(1.3))),
@@ -38,14 +42,16 @@ func NewTracer() trace.Tracer {
 		sdk.WithResource(res),
 	)
 
+	// setting the trace provider
 	otel.SetTracerProvider(tp)
 
-	// register the TraceContext propagator globally.
+	// register the TraceContext propagator globally
 	var tc propagation.TraceContext
 
 	otel.SetTextMapPropagator(tc)
 
-	tracer := otel.Tracer("snapp/mqtt-blackbox-exporter")
+	// create a new tracer
+	tracer := otel.Tracer("stallion-load-test")
 
-	return tracer
+	return tracer, nil
 }

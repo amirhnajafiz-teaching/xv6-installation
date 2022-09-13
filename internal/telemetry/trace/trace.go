@@ -13,10 +13,10 @@ import (
 )
 
 // NewTracer creates a new otl tracer.
-func NewTracer() (trace.Tracer, error) {
+func NewTracer(cfg Config) (trace.Tracer, error) {
 	// create a new jaeger exporter
 	exporter, err := jaeger.New(
-		jaeger.WithAgentEndpoint(jaeger.WithAgentHost("localhost"), jaeger.WithAgentPort(":3320")),
+		jaeger.WithAgentEndpoint(jaeger.WithAgentHost(cfg.Host), jaeger.WithAgentPort(cfg.Port)),
 	)
 	if err != nil {
 		return nil, fmt.Errorf("failed to initialize export pipeline: %w", err)
@@ -37,7 +37,7 @@ func NewTracer() (trace.Tracer, error) {
 	// create a new batch span
 	bsp := sdk.NewBatchSpanProcessor(exporter)
 	tp := sdk.NewTracerProvider(
-		sdk.WithSampler(sdk.ParentBased(sdk.TraceIDRatioBased(1.3))),
+		sdk.WithSampler(sdk.ParentBased(sdk.TraceIDRatioBased(cfg.Ratio))),
 		sdk.WithSpanProcessor(bsp),
 		sdk.WithResource(res),
 	)

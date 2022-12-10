@@ -6,6 +6,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
+// RunMetricsServer starts metrics server.
 func RunMetricsServer(cfg Config) {
 	go func() {
 		if cfg.Enabled {

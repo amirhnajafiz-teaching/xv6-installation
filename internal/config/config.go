@@ -8,11 +8,13 @@ import (
 	"github.com/knadh/koanf/providers/file"
 	"github.com/knadh/koanf/providers/structs"
 	"github.com/official-stallion/stallion-load-test/internal/client"
+	"github.com/official-stallion/stallion-load-test/internal/telemetry/metrics"
 )
 
 // Config stores data configs for load test.
 type Config struct {
-	Client client.Config `koanf:"client"`
+	Client  client.Config  `koanf:"client"`
+	Metrics metrics.Config `koanf:"metrics"`
 }
 
 // Load configs.

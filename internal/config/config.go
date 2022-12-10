@@ -13,8 +13,11 @@ import (
 
 // Config stores data configs for load test.
 type Config struct {
-	Client  client.Config  `koanf:"client"`
-	Metrics metrics.Config `koanf:"metrics"`
+	Consumers int            `koanf:"consumers"`
+	Providers int            `koanf:"providers"`
+	Topic     string         `koanf:"topic"`
+	Client    client.Config  `koanf:"client"`
+	Metrics   metrics.Config `koanf:"metrics"`
 }
 
 // Load configs.

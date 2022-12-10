@@ -1,6 +1,13 @@
 package publisher
 
-import "github.com/spf13/cobra"
+import (
+	"sync"
+	"time"
+
+	"github.com/official-stallion/stallion-load-test/internal/client"
+	"github.com/official-stallion/stallion-load-test/internal/config"
+	"github.com/spf13/cobra"
+)
 
 func GetCommand() *cobra.Command {
 	return &cobra.Command{
@@ -13,5 +20,43 @@ func GetCommand() *cobra.Command {
 }
 
 func main() {
+	// load configs
+	cfg := config.Load()
 
+	// load metrics
+	metric := client.NewMetrics()
+
+	// creating a wait group
+	wg := sync.WaitGroup{}
+
+	for i := 0; i < cfg.Consumers; i++ {
+		cli := client.Client{
+			Cfg: cfg.Client,
+		}
+
+		go func(cli client.Client) {
+			wg.Add(1)
+			metric.Providers.Add(1)
+
+			if err := cli.Connect(); err != nil {
+				metric.FailedConnections.Add(1)
+
+				wg.Done()
+
+				return
+			}
+
+			metric.SuccessConnections.Add(1)
+
+			for {
+				if err := cli.Publish(cfg.Topic, []byte("message")); err != nil {
+					metric.FailedPublish.Add(1)
+				}
+
+				time.Sleep(3 * time.Second)
+			}
+		}(cli)
+	}
+
+	wg.Wait()
 }

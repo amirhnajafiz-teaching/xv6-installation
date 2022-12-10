@@ -7,8 +7,8 @@ import (
 	"github.com/knadh/koanf/parsers/yaml"
 	"github.com/knadh/koanf/providers/file"
 	"github.com/knadh/koanf/providers/structs"
-	"github.com/official-stallion/stallion-load-test/internal/client"
-	"github.com/official-stallion/stallion-load-test/internal/telemetry/metrics"
+	"github.com/official-stallion/race/internal/client"
+	"github.com/official-stallion/race/internal/telemetry/metrics"
 )
 
 // Config stores data configs for load test.

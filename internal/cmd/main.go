@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"github.com/official-stallion/stallion-load-test/internal/cmd/consumer"
-	"github.com/official-stallion/stallion-load-test/internal/cmd/metrics"
-	"github.com/official-stallion/stallion-load-test/internal/cmd/publisher"
-	"github.com/official-stallion/stallion-load-test/internal/cmd/server"
+	"github.com/official-stallion/race/internal/cmd/consumer"
+	"github.com/official-stallion/race/internal/cmd/metrics"
+	"github.com/official-stallion/race/internal/cmd/publisher"
+	"github.com/official-stallion/race/internal/cmd/server"
 	"github.com/spf13/cobra"
 )
 

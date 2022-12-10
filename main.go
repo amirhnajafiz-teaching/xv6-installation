@@ -1,6 +1,6 @@
 package main
 
-import "github.com/official-stallion/stallion-load-test/internal/cmd"
+import "github.com/official-stallion/race/internal/cmd"
 
 func main() {
 	cmd.Execute()

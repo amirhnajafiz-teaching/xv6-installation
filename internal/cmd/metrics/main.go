@@ -1,8 +1,8 @@
 package metrics
 
 import (
-	"github.com/official-stallion/stallion-load-test/internal/config"
-	"github.com/official-stallion/stallion-load-test/internal/telemetry/metrics"
+	"github.com/official-stallion/race/internal/config"
+	"github.com/official-stallion/race/internal/telemetry/metrics"
 	"github.com/spf13/cobra"
 )
 

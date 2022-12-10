@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/official-stallion/stallion-load-test/internal/client"
-	"github.com/official-stallion/stallion-load-test/internal/telemetry/metrics"
+	"github.com/official-stallion/race/internal/client"
+	"github.com/official-stallion/race/internal/telemetry/metrics"
 )
 
 // Default configs.

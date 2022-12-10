@@ -3,8 +3,8 @@ package consumer
 import (
 	"sync"
 
-	"github.com/official-stallion/stallion-load-test/internal/client"
-	"github.com/official-stallion/stallion-load-test/internal/config"
+	"github.com/official-stallion/race/internal/client"
+	"github.com/official-stallion/race/internal/config"
 	"github.com/spf13/cobra"
 )
 

@@ -1,10 +1,10 @@
-# Stallion Load-testing
+<h1 align="center">
+Stallion Race
+</h1>
 
-Load testing on Stallion message broker.
+<br />
 
-## Tasks
-- [ ] Initialize providers
-- [ ] Initialize consumers
-- [ ] Add metrics
-- [ ] Add manifests
-- [ ] Export results
+Load testing on Stallion message broker with Race. You can set configs
+and then start a load-test on Stallion message broker to test the brokers'
+behavior under load.
+

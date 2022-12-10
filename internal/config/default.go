@@ -18,7 +18,7 @@ func Default() Config {
 		},
 		Metrics: metrics.Config{
 			Enabled: false,
-			Port:    "",
+			Port:    "3000",
 		},
 	}
 }

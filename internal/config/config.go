@@ -11,9 +11,10 @@ import (
 
 // Config stores data configs for load test.
 type Config struct {
-	Consumers int    `koanf:"consumers"`
-	Providers int    `koanf:"providers"`
-	Topic     string `koanf:"topic"`
+	Host      string   `koanf:"host"`
+	Consumers int      `koanf:"consumers"`
+	Providers int      `koanf:"providers"`
+	Topics    []string `koanf:"topic"`
 }
 
 // Load configs.

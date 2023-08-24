@@ -21,6 +21,8 @@ func (c Client) Consumer(host, topic string) {
 	client, err := sdk.NewClient(host)
 	if err != nil {
 		log.Println(fmt.Errorf("failed to connect error=%w", err))
+
+		return
 	}
 
 	wg.Add(1)
@@ -38,6 +40,8 @@ func (c Client) Provider(host, topic, message string, wait int) {
 	client, err := sdk.NewClient(host)
 	if err != nil {
 		log.Println(fmt.Errorf("failed to connect error=%w", err))
+
+		return
 	}
 
 	for {

@@ -29,7 +29,7 @@ func main() {
 	for i := 0; i < cfg.Providers; i++ {
 		topic := cfg.Topics[j]
 
-		go client.Provider(cfg.Host, topic, "hello world", 2)
+		go client.Provider(cfg.Host, topic, cfg.Message, cfg.Offset)
 
 		j++
 		if j == len(cfg.Topics) {

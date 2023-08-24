@@ -2,8 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
-	"sync"
 
 	"github.com/official-stallion/race/internal/client"
 	"github.com/official-stallion/race/internal/config"
@@ -59,8 +60,13 @@ func main() {
 		}
 	}
 
-	var wg sync.WaitGroup
+	mux := http.NewServeMux()
 
-	wg.Add(1)
-	wg.Wait()
+	mux.HandleFunc("/metrics", handler(cli.Metrics))
+
+	log.Println(fmt.Sprintf("metrics server started on %d ...", 8080))
+
+	if err := http.ListenAndServe(fmt.Sprintf(":%d", 8080), mux); err != nil {
+		log.Println(fmt.Errorf("failed to start metrics server error=%w", err))
+	}
 }

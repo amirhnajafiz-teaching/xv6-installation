@@ -1,12 +1,28 @@
 package main
 
 import (
+	"encoding/json"
+	"net/http"
 	"sync"
 
 	"github.com/official-stallion/race/internal/client"
 	"github.com/official-stallion/race/internal/config"
 	"github.com/official-stallion/race/internal/metrics"
 )
+
+func handler(metrics *metrics.Handler) func(http.ResponseWriter, *http.Request) {
+	return func(writer http.ResponseWriter, _ *http.Request) {
+		js, err := json.Marshal(metrics.Metrics)
+		if err != nil {
+			http.Error(writer, err.Error(), http.StatusInternalServerError)
+
+			return
+		}
+
+		writer.Header().Set("Content-Type", "application/json")
+		_, _ = writer.Write(js)
+	}
+}
 
 func main() {
 	// load configs

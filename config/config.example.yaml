@@ -1,0 +1,7 @@
+host: st://@localhost:7025
+message: hello
+consumers: 10
+providers: 10
+offset: 2
+topics:
+  - snapp

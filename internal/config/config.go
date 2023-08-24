@@ -7,17 +7,13 @@ import (
 	"github.com/knadh/koanf/parsers/yaml"
 	"github.com/knadh/koanf/providers/file"
 	"github.com/knadh/koanf/providers/structs"
-	"github.com/official-stallion/race/internal/client"
-	"github.com/official-stallion/race/internal/telemetry/metrics"
 )
 
 // Config stores data configs for load test.
 type Config struct {
-	Consumers int            `koanf:"consumers"`
-	Providers int            `koanf:"providers"`
-	Topic     string         `koanf:"topic"`
-	Client    client.Config  `koanf:"client"`
-	Metrics   metrics.Config `koanf:"metrics"`
+	Consumers int    `koanf:"consumers"`
+	Providers int    `koanf:"providers"`
+	Topic     string `koanf:"topic"`
 }
 
 // Load configs.

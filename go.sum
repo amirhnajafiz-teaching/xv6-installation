@@ -267,6 +267,8 @@ github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjY
 github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
 github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
 github.com/npillmayer/nestext v0.1.3/go.mod h1:h2lrijH8jpicr25dFY+oAJLyzlya6jhnuG+zWp9L0Uk=
+github.com/official-stallion/go-sdk v0.1.0 h1:N5Yxgsh8t4VvhndigIv/SX6rennLtIyj4onNTgOOaK0=
+github.com/official-stallion/go-sdk v0.1.0/go.mod h1:m76X/qZ67EbfNJ1mWP7RSpPly3M5RxI3Jx2L3rKKToo=
 github.com/official-stallion/stallion v1.2.2 h1:Xs18FMhPdWwjZZcTYAQD+sl+n43vEKmrWiDGVOJ24UA=
 github.com/official-stallion/stallion v1.2.2/go.mod h1:LfyuiZ9IPozTGuaDxB/n/zzlYZksSgAbSHIFDC5aQCs=
 github.com/oklog/run v1.0.0/go.mod h1:dlhp/R75TPv97u0XWUtDeV/lRKWPKSdTuV0TZvrmrQA=

@@ -32,6 +32,7 @@ func main() {
 	// create new client
 	cli := client.Client{
 		Metrics: metrics.New(cfg.Providers, cfg.Consumers, cfg.Topics),
+		Debug:   cfg.Debug,
 	}
 
 	// create consumers

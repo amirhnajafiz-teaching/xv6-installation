@@ -13,6 +13,7 @@ import (
 
 type Client struct {
 	Metrics *metrics.Handler
+	Debug   bool
 }
 
 func (c Client) Consumer(host, topic string) {
@@ -30,7 +31,9 @@ func (c Client) Consumer(host, topic string) {
 
 	client.Subscribe(topic, func(bytes []byte) {
 		c.Metrics.Receive(topic)
-		log.Println(fmt.Sprintf("got %d bytes", len(bytes)))
+		if c.Debug {
+			log.Println(fmt.Sprintf("got %d bytes", len(bytes)))
+		}
 	})
 
 	wg.Wait()
@@ -47,7 +50,9 @@ func (c Client) Provider(host, topic, message string, wait int) {
 	for {
 		if er := client.Publish(topic, []byte(message)); er != nil {
 			c.Metrics.Failed()
-			log.Println(fmt.Errorf("failed to publish erorr=%w", er))
+			if c.Debug {
+				log.Println(fmt.Errorf("failed to publish erorr=%w", er))
+			}
 		} else {
 			c.Metrics.Publish(topic)
 		}

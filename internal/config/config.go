@@ -13,6 +13,7 @@ import (
 type Config struct {
 	Host      string   `koanf:"host"`
 	Message   string   `koanf:"message"`
+	Debug     bool     `koanf:"debug"`
 	Consumers int      `koanf:"consumers"`
 	Providers int      `koanf:"providers"`
 	Offset    int      `koanf:"offset"`

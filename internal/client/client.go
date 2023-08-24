@@ -6,10 +6,16 @@ import (
 	"sync"
 	"time"
 
+	"github.com/official-stallion/race/internal/metrics"
+
 	sdk "github.com/official-stallion/go-sdk"
 )
 
-func Consumer(host, topic string) {
+type Client struct {
+	Metrics *metrics.Handler
+}
+
+func (c Client) Consumer(host, topic string) {
 	var wg sync.WaitGroup
 
 	client, err := sdk.NewClient(host)
@@ -18,15 +24,17 @@ func Consumer(host, topic string) {
 	}
 
 	wg.Add(1)
+	c.Metrics.Subscribe(topic)
 
 	client.Subscribe(topic, func(bytes []byte) {
+		c.Metrics.Receive(topic)
 		log.Println(fmt.Sprintf("got %d bytes", len(bytes)))
 	})
 
 	wg.Wait()
 }
 
-func Provider(host, topic, message string, wait int) {
+func (c Client) Provider(host, topic, message string, wait int) {
 	client, err := sdk.NewClient(host)
 	if err != nil {
 		log.Println(fmt.Errorf("failed to connect error=%w", err))
@@ -34,7 +42,10 @@ func Provider(host, topic, message string, wait int) {
 
 	for {
 		if er := client.Publish(topic, []byte(message)); er != nil {
+			c.Metrics.Failed()
 			log.Println(fmt.Errorf("failed to publish erorr=%w", er))
+		} else {
+			c.Metrics.Publish(topic)
 		}
 
 		time.Sleep(time.Duration(wait) * time.Second)

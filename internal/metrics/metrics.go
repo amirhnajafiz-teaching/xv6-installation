@@ -4,7 +4,7 @@ import "sync"
 
 type (
 	Handler struct {
-		Metrics Metrics
+		Metrics *Metrics
 		lock    sync.Mutex
 	}
 
@@ -18,6 +18,28 @@ type (
 		Topics          []string       `json:"topics"`
 	}
 )
+
+func New(providers, consumers int, topics []string) *Handler {
+	h := &Handler{
+		Metrics: &Metrics{
+			Providers:       providers,
+			Consumers:       consumers,
+			Topics:          topics,
+			FailedPublish:   0,
+			Publish:         make(map[string]int),
+			Subscribe:       make(map[string]int),
+			ReceivedMessage: make(map[string]int),
+		},
+	}
+
+	for _, key := range topics {
+		h.Metrics.Publish[key] = 0
+		h.Metrics.Subscribe[key] = 0
+		h.Metrics.ReceivedMessage[key] = 0
+	}
+
+	return h
+}
 
 func (h *Handler) Publish(topic string) {
 	h.lock.Lock()

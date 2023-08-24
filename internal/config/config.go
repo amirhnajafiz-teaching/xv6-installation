@@ -17,7 +17,7 @@ type Config struct {
 	Consumers int      `koanf:"consumers"`
 	Providers int      `koanf:"providers"`
 	Offset    int      `koanf:"offset"`
-	Topics    []string `koanf:"topic"`
+	Topics    []string `koanf:"topics"`
 }
 
 // Load configs.

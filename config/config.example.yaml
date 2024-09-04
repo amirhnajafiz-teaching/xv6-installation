@@ -1,8 +1,0 @@
-host: st://@localhost:7025
-message: hello
-debug: false
-consumers: 10
-providers: 10
-offset: 2
-topics:
-  - snapp
